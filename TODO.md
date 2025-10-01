@@ -1,0 +1,4 @@
+- [x] Add STATIC_ROOT and STATICFILES_DIRS to settings.py
+- [x] Add static.serve to blog/urls.py
+- [x] Run collectstatic
+- [ ] Test the home page to verify CSS is served
