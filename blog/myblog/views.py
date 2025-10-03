@@ -1,18 +1,19 @@
 from django.shortcuts import render
-# from django.http import FileResponse
-# from django.conf import settings
-# import os
+from .models import Blog
+
 
 # Create your views here.
-def home(request):
-    return render(request, 'home.html')
+def blog_list(request):
+    posts = Blog.objects.all()  # Récupère tous les articles
+    carousel_posts = Blog.objects.all().order_by('-id')[:5]  # Récupère les 5 derniers articles
+    
+    return render(request, 'list.html', {'posts': posts, 'carousel_posts': carousel_posts})
 
 
 
-# def serve_static_file(request, filename):
-#     file_path = os.path.join(settings.STATIC_ROOT, 'myblog', filename)
-#     if os.path.exists(file_path):
-#         return FileResponse(open(file_path, 'rb'))
-#     else:
-#         from django.http import HttpResponse
-#         return HttpResponse('Fichier non trouvé', status=404)
+
+def blog_detail(request):
+    return render(request, 'detail.html')
+
+
+#utiliser les modèles Blog et Comment dans vos vues (views.py) pour récupérer des articles et les afficher dans les templates list.html et detail.html.
