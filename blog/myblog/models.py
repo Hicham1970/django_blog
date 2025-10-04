@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils import timezone
+from ckeditor.fields import RichTextField
+
 
 # Create your models here.
 class Blog(models.Model):
     title = models.CharField(max_length=200)
     image = models.CharField(max_length= 2025)
-    content = models.TextField()
+    content = RichTextField()
     description = models.TextField()
     date = models.DateTimeField(auto_now=True)
     likes = models.PositiveIntegerField(default=0)

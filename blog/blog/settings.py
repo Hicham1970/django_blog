@@ -25,8 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles', 
     'myblog',  # Ajouter l'app 'myblog'
+    'ckeditor', # Ajouter l'app 'ckeditor' qui permet d'avoir un éditeur de texte riche
     
 ]
 

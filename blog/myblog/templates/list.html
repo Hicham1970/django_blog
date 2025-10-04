@@ -53,7 +53,8 @@
           <div class="card h-100">
             <img src="{{post.image}}" class="card-img-top" alt="{{post.title}}">
             <div class="card-body">
-              <h5 class="card-title">{{post.title}}
+              <h5 class="card-title">
+                <a href="{% url 'detail' post.pk %}" class="text-decoration-none">{{post.title}}</a>
               </h5>
               <p class="card-text">{{post.description | truncatewords:25}}</p>
   
@@ -79,7 +80,7 @@
   
   
               <!-- Read more link -->
-              <a href="" class="btn btn-primary mt-2">Read more</a>
+              <a href="{% url 'detail' post.pk %}" class="btn btn-primary mt-2">Read more</a>
             </div>
             
           </div>
