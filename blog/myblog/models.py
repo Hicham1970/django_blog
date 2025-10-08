@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Blog(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=500)
     image = models.CharField(max_length= 2025)
     content = RichTextField()
     description = models.TextField()

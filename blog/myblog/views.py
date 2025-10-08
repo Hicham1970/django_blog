@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Blog
 from django.shortcuts import get_object_or_404
+from .forms import CommentForm  
 
 
 # Create list views.
@@ -18,7 +19,24 @@ def blog_list(request):
 def blog_detail(request, pk):
     posts = get_object_or_404(Blog, pk=pk)  # Récupère l'article par son ID ou renvoie une erreur 404 si non trouvé
     
-    return render(request, 'detail.html', {'posts': posts})
+    # comments:
+    comments = posts.comments.all()  # Récupère tous les commentaires associés à l'article
+    
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.posts = posts  # Associe le commentaire à l'article
+            comment.save()
+            
+            return redirect('detail', pk=pk)  # Redirige vers la même page après la soumission du commentaire
+    else:
+        form = CommentForm()
+    
+    return render(request, 'detail.html', {'posts': posts, 'comments': comments, 'form': form})
+
+
+
 
 
 
