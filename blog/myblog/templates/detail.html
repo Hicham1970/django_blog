@@ -16,10 +16,12 @@
 
           <!-- Like Button (Without AJAX) -->
           <form method="POST" action="">
+            {% csrf_token %}
+            <input type="hidden" name="like" value="1">
             <button type="submit" class="btn btn-outline-danger">
               <i class="fa fa-heart"></i> Like
             </button>
-            <span>2</span> Likes
+            <span>{{ posts.likes }}</span> Likes
           </form>
 
           <!-- Comment Count -->

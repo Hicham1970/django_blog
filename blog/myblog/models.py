@@ -31,6 +31,6 @@ class Comment(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'Comment by {self.author} on {self.blog}'
+        return f'Comment by {self.author} on {self.posts}'
 
    

@@ -23,17 +23,31 @@ def blog_detail(request, pk):
     comments = posts.comments.all()  # Récupère tous les commentaires associés à l'article
     
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.posts = posts  # Associe le commentaire à l'article
-            comment.save()
-            
-            return redirect('detail', pk=pk)  # Redirige vers la même page après la soumission du commentaire
+        if 'like' in request.POST:
+            posts.likes += 1
+            posts.save()
+            return redirect('detail', pk=pk)
+        else:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.posts = posts  # Associe le commentaire à l'article
+                comment.save()
+                return redirect('detail', pk=pk)  # Redirige vers la même page après la soumission du commentaire
     else:
         form = CommentForm()
     
     return render(request, 'detail.html', {'posts': posts, 'comments': comments, 'form': form})
+
+
+
+# Likes functionality (optional)
+def post_like(request, pk):
+    post = get_object_or_404(Blog, pk=pk)
+    post.likes += 1
+    post.save()
+    return redirect('detail', pk=pk)
+
 
 
 
