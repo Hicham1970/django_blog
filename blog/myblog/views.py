@@ -51,7 +51,14 @@ def post_like(request, pk):
 
 
 
-
+def search(request):
+    query = request.GET.get('q', '')
+    if query:
+        results = Blog.objects.filter(title__icontains=query)  # Recherche dans les titres des articles
+    else:
+        results = Blog.objects.none()  # Aucun résultat si la requête est vide
+    
+    return render(request, 'search.html', {'results': results, 'query': query}  )
 
 
 

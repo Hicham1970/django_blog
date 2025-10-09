@@ -1,0 +1,52 @@
+{% extends "base.html"%}
+{% block title %}Search Results{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+    <h2>Search Results for "{{ query }}"</h2>
+    <div class="d-flex flex-row flex-wrap">
+        {% if results %}
+        {% for post in results %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{post.image}}" class="card-img-top" alt="{{post.title}}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'detail' post.pk %}" class="text-decoration-none">{{post.title}}</a>
+                    </h5>
+                    <p class="card-text">{{post.description | truncatewords:25}}</p>
+
+                    <!-- Like button and count -->
+                    <!-- Like & Comment Section -->
+                    <div class="d-flex align-items-center justify-content-between">
+
+                        <!-- Like Button -->
+                        <div>
+                            <button class="btn btn-outline-danger btn-sm me-2 like-btn" data-post-id="">
+                                <i class="fa fa-heart"></i> Like
+                            </button>
+                            <span class="like-count">{{post.likes}}</span> Likes
+                        </div>
+
+                        <!-- Comment Count -->
+                        <div>
+                            <i class="fa fa-comment text-primary"></i>
+                            <span class="comment-count">{{post.comments.count}}</span> Comments
+                        </div>
+
+                    </div>
+
+
+                    <!-- Read more link -->
+                    <a href="{% url 'detail' post.pk %}" class="btn btn-primary mt-2">Read more</a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No results found for "{{ query }}".</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
